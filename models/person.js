@@ -1,9 +1,11 @@
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator')
-require('dotenv').config()
+/* eslint-disable no-unused-vars */
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
+require('dotenv').config();
 
 
-const url = process.env.MONGODB_URI
+// eslint-disable-next-line no-undef
+const url = process.env.MONGODB_URI;
 
 mongoose.connect(url,
   {
@@ -12,10 +14,10 @@ mongoose.connect(url,
     useFindAndModify: true,
     useCreateIndex: true
   }).then(result => {
-    console.log('connected to MongoDB')
-  }).catch(error => {
-    console.log('error connecting to MongoDB:', error.message)
-  })
+  console.log('connected to MongoDB');
+}).catch(error => {
+  console.log('error connecting to MongoDB:', error.message);
+});
 
 const personSchema = new mongoose.Schema({
   name: {
@@ -29,15 +31,15 @@ const personSchema = new mongoose.Schema({
     minLength: 8,
     required: true
   },
-})
+});
 
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
   }
-})
+});
 
 // personSchema.plugin(uniqueValidator, {type: 'mongoose-unique-validator', message:{expected {PATH} to be unique}})
 
@@ -48,8 +50,8 @@ findOneAndUpdate({ email: 'old-email@example.com' },
     { runValidators: true, context: 'query' },)
 */
 
-personSchema.plugin(uniqueValidator, {type: 'mongoose-unique-validator'})
-module.exports = mongoose.model('Person', personSchema)
+personSchema.plugin(uniqueValidator, { type: 'mongoose-unique-validator' });
+module.exports = mongoose.model('Person', personSchema);
 
 
 // const person = new Person({
