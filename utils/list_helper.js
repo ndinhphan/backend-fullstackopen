@@ -20,7 +20,7 @@ const favoriteBlog = (blogs) => {
   return blogs.length === 0 ? {} : mostFavoriteBlog;
 };
 
-const mostBlogs = (blogs) =>{
+const mostBlogs = (blogs) => {
   const countBlogs = _.countBy(blogs,'author');
   const result = _.max(Object.keys(countBlogs), o => countBlogs[o]);
   return {
