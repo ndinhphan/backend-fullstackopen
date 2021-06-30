@@ -30,7 +30,7 @@ const errorHandler = (error, request, response, next) => {
 //extract token and put it into request when request gets passed through middlewares
 const tokenExtractor = (request, response, next) => {
   console.log('token extractor is working');
-  const authorization = request.get('authorization');
+  const authorization = request.get('Authorization');
   if (authorization && authorization.toLowerCase().startsWith('bearer')){
     request.token = authorization.substring(7);
   } else request.token = null;
